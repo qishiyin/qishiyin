@@ -8,10 +8,7 @@ public class AnFrame extends UI
 	public String titleString = null;
 	//显示窗口
 	public String showframeString;
-	//长宽组
-	public ArrayList<String> hchargroup,vchargroup,vstringgroup,threestringgroup;
-	//输出的片段
-	public String copystring,zerostring,twostring,endstring,voidstring;
+	
 	
 	public String ui(float x,float y,int width,int height)
 	{
@@ -36,6 +33,7 @@ public class AnFrame extends UI
 		threestringgroup = new ArrayList<String>();
 		copystring = "";
 		zerostring = "";
+		onestring = "";
 		twostring = "";
 		endstring = "";
 		voidstring = "";
@@ -62,16 +60,13 @@ public class AnFrame extends UI
 			for(String s : hchargroup)
 			{
 				zerostring = zerostring + s;
+				endstring = endstring + s;
 			}
 		}else
 		{
 			
 		}
-		for(String s : hchargroup)
-		{
-			
-			endstring = endstring + s;
-		}
+		
 		if(titleString == null)
 		{
 			for(String s : vstringgroup)
@@ -81,9 +76,18 @@ public class AnFrame extends UI
 		}else
 		{
 			int i = titleString.length();
-			for(int j = 0;j<vstringgroup.size() - i;j++)
+			for(int j = 0;j<vstringgroup.size() - (i + 4);j++)
 			{
-				voidstring = voidstring + vstringgroup.get(j);
+				onestring = onestring + vstringgroup.get(j);
+			}
+			for(String s : vstringgroup)
+			{
+				voidstring = voidstring + s;
+			}
+			for(int j = 0;j < hchargroup.size();j++)
+			{
+				zerostring = zerostring + hchargroup.get(j);
+				endstring = endstring + hchargroup.get(j);
 			}
 		}
 		
@@ -104,13 +108,7 @@ public class AnFrame extends UI
 				{
 					copystring =   copystring + lefttop + zerostring + righttop + "\n";
 				}
-				if(v == 1)
-				{
-					if(titleString != null )
-					{
-						copystring = copystring + titleString + voidstring;
-					}
-				}
+				
 				if(v == 2)
 				{
 					copystring =   copystring + vbar + twostring + vbar + "\n";
@@ -119,7 +117,7 @@ public class AnFrame extends UI
 				{
 					copystring =   copystring + leftdown + endstring + rightdown;
 				}
-				if(v != 0)
+				if(v >= 2)
 				{
 					if(v != height)
 					{
@@ -134,42 +132,75 @@ public class AnFrame extends UI
 		}
 		else
 		{
-			for(int v = 0;v <= height;v++)
+			if(titleString.length() < width)
 			{
-				
-				if(v == 0)
+				for(int v = 0;v <= height;v++)
 				{
-					copystring =   copystring + lefttop + zerostring + righttop + "\n";
-				}
-				if(v == 2)
-				{
-					copystring =   copystring + vbar + twostring + vbar + "\n";
-				}
-				if(v == height  )
-				{
-					copystring =   copystring + leftdown + endstring + rightdown;
-				}
-				if(v != 0)
-				{
-					if(v != height)
+					
+					if(v == 0)
 					{
-						copystring =  copystring + vbar + voidstring + vbar + "\n";
+						copystring =    copystring + v +" " + lefttop + zerostring + righttop + "\n";
+					}
+					if(v == 1)
+					{
+						copystring =  copystring + v+" " + vbar + titleString + onestring + "[0]X" + vbar + "\n";
+					}
+					if(v == 2)
+					{
+						copystring =   copystring + v+" " + vbar + twostring + vbar + "\n";
+					}
+					if(v == height  )
+					{
+						copystring =   copystring + v +""+ leftdown + endstring + rightdown;
+					}
+					if(v != 0)
+					{
+						if(v != height)
+						{
+							copystring =  copystring + v+" " + vbar + voidstring + vbar + "\n";
+						}
+						
 					}
 					
+					
 				}
-				
-				
+			}else if(titleString.length() < width)
+			{
+				for(int v = 0;v <= height;v++)
+				{
+					
+					if(v == 0)
+					{
+						copystring =    copystring + v+" " + lefttop + zerostring + righttop + "\n";
+					}
+					if(v == 1)
+					{
+						copystring =  copystring + v+" " + vbar + titleString + onestring + "[0]X" + vbar + "\n";
+					}
+					if(v == 2)
+					{
+						copystring =   copystring + v+" " + vbar + twostring + vbar + "\n";
+					}
+					if(v == height  )
+					{
+						copystring =   copystring + v+"" + leftdown + endstring + rightdown;
+					}
+					if(v != 0)
+					{
+						if(v != height)
+						{
+							copystring =  copystring + v + vbar + voidstring + vbar + "\n";
+						}
+						
+					}
+					
+					
+				}
 			}
+			
 		}
 		showframeString = copystring;
-		//if(titleString != null)
-		//{
-		//	showframeString = ""+vbars+hbars+vbars+"\n"+vbars+ titleString+vbars+"\n"+vbars+hbars+vbars;
-		//}
-		//else 
-		//{
-		//	showframeString = ""+vbars+hbars+vbars+"\n"+vbars+ " "+vbars+"\n"+vbars+hbars+vbars;
-		//}
+		
 		return showframeString;
 	}
 	
